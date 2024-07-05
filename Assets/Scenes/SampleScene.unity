@@ -1776,71 +1776,109 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelPartPrefab: {fileID: 1288249935767410942, guid: 2fba3d8b37e1aea469cd5ca35201cf57, type: 3}
   _setNativeChance: 1
+  _setRandomPrizes: 0
   _wheelPartsData:
-  - ID: 100
-    DefaultIcon: {fileID: 21300000, guid: fc469465d15164f46a47840b5c2d83e1, type: 3}
-    DefaultDescription: 0
-    DefaultColor: {r: 0.10856521, g: 1, b: 0, a: 1}
-    chance: 12.5
-    angle: 0
-    size: 0
-    oldChance: 12.5
-  - ID: 101
-    DefaultIcon: {fileID: 21300000, guid: 2216bd4be2907734eaaa5ba699f06b0a, type: 3}
-    DefaultDescription: 1
+  - forRepetPrizes: 1
+    prizeData:
+      ID: 100
+      DefaultIcon: {fileID: 21300000, guid: fc469465d15164f46a47840b5c2d83e1, type: 3}
+      DefaultDescription: 0
+      repeatPrize: 1
+      chance: 16.666666
+      hashChance: 16.666666
+      isWin: 0
     DefaultColor: {r: 1, g: 0, b: 0, a: 1}
-    chance: 12.5
     angle: 0
     size: 0
-    oldChance: 12.5
-  - ID: 102
-    DefaultIcon: {fileID: 21300000, guid: 068bd2bed47c5cc488388212809737d1, type: 3}
-    DefaultDescription: 2
+  - forRepetPrizes: 1
+    prizeData:
+      ID: 101
+      DefaultIcon: {fileID: 21300000, guid: 2216bd4be2907734eaaa5ba699f06b0a, type: 3}
+      DefaultDescription: 1
+      repeatPrize: 1
+      chance: 16.666666
+      hashChance: 16.666666
+      isWin: 0
     DefaultColor: {r: 0, g: 0.13396597, b: 1, a: 1}
-    chance: 12.5
     angle: 0
     size: 0
-    oldChance: 12.5
-  - ID: 103
-    DefaultIcon: {fileID: 21300000, guid: ac0845efeca8ab84a855dabafc9a53ad, type: 3}
-    DefaultDescription: 3
+  - forRepetPrizes: 1
+    prizeData:
+      ID: 102
+      DefaultIcon: {fileID: 21300000, guid: 068bd2bed47c5cc488388212809737d1, type: 3}
+      DefaultDescription: 2
+      repeatPrize: 1
+      chance: 16.666666
+      hashChance: 16.666666
+      isWin: 0
     DefaultColor: {r: 0, g: 1, b: 0.306108, a: 1}
-    chance: 12.5
     angle: 0
     size: 0
-    oldChance: 12.5
-  - ID: 104
-    DefaultIcon: {fileID: 21300000, guid: 2c826b7d862d9b74ea134c3fdddcf119, type: 3}
-    DefaultDescription: 4
+  - forRepetPrizes: 0
+    prizeData:
+      ID: 103
+      DefaultIcon: {fileID: 21300000, guid: ac0845efeca8ab84a855dabafc9a53ad, type: 3}
+      DefaultDescription: 3
+      repeatPrize: 0
+      chance: 16.666666
+      hashChance: 16.666666
+      isWin: 0
     DefaultColor: {r: 1, g: 0.36790052, b: 0, a: 1}
-    chance: 12.5
     angle: 0
     size: 0
-    oldChance: 12.5
-  - ID: 105
-    DefaultIcon: {fileID: 21300000, guid: 2a16c98f736c96c4ca0287d81e753f1e, type: 3}
-    DefaultDescription: 5
+  - forRepetPrizes: 1
+    prizeData:
+      ID: 104
+      DefaultIcon: {fileID: 21300000, guid: f468ef3a7b00c76428b0e986832d6341, type: 3}
+      DefaultDescription: 4
+      repeatPrize: 1
+      chance: 16.666666
+      hashChance: 16.666666
+      isWin: 0
     DefaultColor: {r: 0, g: 0.656765, b: 1, a: 1}
-    chance: 12.5
     angle: 0
     size: 0
-    oldChance: 12.5
-  - ID: 106
-    DefaultIcon: {fileID: 21300000, guid: f468ef3a7b00c76428b0e986832d6341, type: 3}
-    DefaultDescription: 6
+  - forRepetPrizes: 0
+    prizeData:
+      ID: 105
+      DefaultIcon: {fileID: 21300000, guid: 2c826b7d862d9b74ea134c3fdddcf119, type: 3}
+      DefaultDescription: 5
+      repeatPrize: 0
+      chance: 16.666666
+      hashChance: 16.666666
+      isWin: 0
     DefaultColor: {r: 0.7313528, g: 0, b: 1, a: 1}
-    chance: 12.5
     angle: 0
     size: 0
-    oldChance: 12.5
+  _prizesData:
+  - ID: 106
+    DefaultIcon: {fileID: 21300000, guid: 2a16c98f736c96c4ca0287d81e753f1e, type: 3}
+    DefaultDescription: 6
+    repeatPrize: 0
+    chance: 50
+    hashChance: 0
+    isWin: 0
   - ID: 107
     DefaultIcon: {fileID: 21300000, guid: 86eda41f5663190449cd05a21921ce62, type: 3}
     DefaultDescription: 7
-    DefaultColor: {r: 1, g: 0, b: 0.44906044, a: 1}
-    chance: 12.5
-    angle: 0
-    size: 0
-    oldChance: 12.5
+    repeatPrize: 0
+    chance: 50
+    hashChance: 0
+    isWin: 0
+  - ID: 108
+    DefaultIcon: {fileID: 21300000, guid: 558cc5b3b7bae3b49a9e7bae4c0bd2b8, type: 3}
+    DefaultDescription: 8
+    repeatPrize: 1
+    chance: 50
+    hashChance: 0
+    isWin: 0
+  - ID: 109
+    DefaultIcon: {fileID: 21300000, guid: dde51215b2ca4e54088613454a1ff58c, type: 3}
+    DefaultDescription: 9
+    repeatPrize: 1
+    chance: 50
+    hashChance: 0
+    isWin: 0
   _wheelCurve:
     serializedVersion: 2
     m_Curve:
@@ -1883,7 +1921,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _prizeQueue: 00000000070000000200000006000000
+  _prizeQueue: 6700000068000000690000006a000000
 --- !u!1 &2026766663
 GameObject:
   m_ObjectHideFlags: 0

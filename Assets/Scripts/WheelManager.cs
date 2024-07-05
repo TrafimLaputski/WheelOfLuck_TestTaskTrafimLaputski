@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Build;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WheelManager : MonoBehaviour
@@ -9,7 +10,9 @@ public class WheelManager : MonoBehaviour
 
     [SerializeField] private WheelPart wheelPartPrefab = null;
     [SerializeField] private bool _setNativeChance = false;
+    [SerializeField] private bool _setRandomPrizes = false;
     [SerializeField] private List<WheelPartData> _wheelPartsData = null;
+    [SerializeField] private List<PrizeData> _prizesData = null;
     [SerializeField] private AnimationCurve _wheelCurve = null;
 
     [SerializeField] private int[] _prizeQueue = null;
@@ -77,6 +80,15 @@ public class WheelManager : MonoBehaviour
 
             tempWheelPart.GeneratePart(_wheelPartsData[i]);
 
+            if (_wheelPartsData[i].prizeData == null || _setRandomPrizes)
+            {
+                tempWheelPart.UpdatePrizeData(GetRandomPrizeData(_wheelPartsData[i].forRepetPrizes));
+            }
+            else
+            {
+                tempWheelPart.UpdatePrizeData(_wheelPartsData[i].prizeData);
+            }
+
             _wheelParts.Add(tempWheelPart);
         }
     }
@@ -96,11 +108,23 @@ public class WheelManager : MonoBehaviour
 
         if (_prizeQueue.Length > 0 && _prizeQueue.Length > _rotationCount)
         {
-            _prizeNum = _prizeQueue[_rotationCount];
+            
+            int prizeId = _prizeQueue[_rotationCount];
+            bool prizeFound = false;
 
-            if (_prizeNum >= _wheelParts.Count)
+            for (int i = 0; i < _wheelParts.Count; i++)
+            {
+                if (_wheelParts[i].PartData.prizeData.ID == prizeId)
+                {
+                    _prizeNum = i;
+                    prizeFound = true;
+                }
+            }
+
+            if (_prizeNum >= _wheelParts.Count || !prizeFound)
             {
                 _prizeNum = Random.Range(0, _wheelParts.Count);
+                _rotationCount--;
             }
         }
         else
@@ -139,11 +163,11 @@ public class WheelManager : MonoBehaviour
 
         foreach (var part in partsData)
         {
-            difference = part.chance - part.oldChance;
+            difference = part.prizeData.chance - part.prizeData.hashChance;
 
             if (difference != 0)
             {
-                part.oldChance = part.chance;
+                part.prizeData.hashChance = part.prizeData.chance;
                 tempPartData = part;
                 break;
             }
@@ -160,8 +184,8 @@ public class WheelManager : MonoBehaviour
                 }
                 else
                 {
-                    part.chance -= difference;
-                    part.oldChance = part.chance;
+                    part.prizeData.chance -= difference;
+                    part.prizeData.hashChance = part.prizeData.chance;
                 }
             }
 
@@ -189,8 +213,8 @@ public class WheelManager : MonoBehaviour
 
         foreach (var part in partsData)
         {
-            part.chance = chance;
-            part.oldChance = chance;
+            part.prizeData.chance = chance;
+            part.prizeData.hashChance = chance;
         }
     }
 
@@ -198,5 +222,63 @@ public class WheelManager : MonoBehaviour
     {
         _wheelStart = false;
         winAction.Invoke(_wheelParts[_prizeNum]);
+        _wheelParts[_prizeNum].PartData.prizeData.isWin = true;
+
+        PrizeData newPrize = GetRandomPrizeData(_wheelParts[_prizeNum].PartData.forRepetPrizes);
+
+        if (newPrize != null)
+        {
+            PrizeData tempPrize = _wheelParts[_prizeNum].PartData.prizeData;
+
+            if (!_prizesData.Contains(tempPrize))
+            {
+                _prizesData.Add(tempPrize);
+            }
+
+            _wheelParts[_prizeNum].UpdatePrizeData(newPrize);
+        }
+
+        if (_setNativeChance)
+        {
+            SetNativeChance();
+        }
+        else
+        {
+            CalculateChance();
+        }
+    }
+
+    private PrizeData GetRandomPrizeData(bool repetPrize)
+    {
+        List<PrizeData> tempPrizesData = new List<PrizeData>();
+
+        foreach (var prize in _prizesData)
+        {
+            if (prize.repeatPrize && repetPrize)
+            {
+                tempPrizesData.Add(prize);
+            }
+            else if (!prize.repeatPrize && !prize.isWin)
+            {
+                tempPrizesData.Add(prize);
+            }
+        }
+
+        if (tempPrizesData.Count > 0)
+        {
+            PrizeData newPrize = tempPrizesData[Random.Range(0, tempPrizesData.Count)];
+
+            _prizesData.Remove(newPrize);
+            return newPrize;
+        }
+        else
+        {
+            if (!repetPrize)
+            {
+                return GetRandomPrizeData(true);
+            }
+
+            return null;
+        }
     }
 }

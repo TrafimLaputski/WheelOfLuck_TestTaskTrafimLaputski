@@ -16,7 +16,7 @@ public class WheelPart : MonoBehaviour
 
     public int ID
     {
-        get { return _partData.ID; }
+        get { return _partData.prizeData.ID; }
     }
 
     public float Angle
@@ -36,13 +36,13 @@ public class WheelPart : MonoBehaviour
 
     public Sprite Icon
     {
-        get { return _partData.DefaultIcon; }
+        get { return _partData.prizeData.DefaultIcon; }
     }
 
 
     public string Description
     {
-        get { return _partData.DefaultDescription; }
+        get { return _partData.prizeData.DefaultDescription; }
     }
 
     public void GeneratePart(WheelPartData partData)
@@ -52,12 +52,16 @@ public class WheelPart : MonoBehaviour
         _image.color = partData.DefaultColor;
         _image.fillAmount = partData.size;
 
-        _icon.sprite = partData.DefaultIcon;
-        _descriptionText.text = partData.DefaultDescription;
-
         float informationAngle = ((1f - partData.size) * 360f / 2f) + 270;
         _informationPoint.transform.rotation = Quaternion.Euler(0f, 0f, informationAngle);
 
         transform.rotation = Quaternion.Euler(0f, 0f, partData.angle);
+    }
+
+    public void UpdatePrizeData(PrizeData prizeData)
+    {
+        PartData.prizeData = prizeData;
+        _icon.sprite = prizeData.DefaultIcon;
+        _descriptionText.text = prizeData.DefaultDescription;
     }
 }
