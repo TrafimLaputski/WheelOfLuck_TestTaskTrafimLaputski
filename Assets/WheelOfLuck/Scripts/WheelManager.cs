@@ -27,7 +27,7 @@ public class WheelManager : MonoBehaviour
     [Tooltip("Wheel segment data. Allows you to add/remove them, change the color, and fill them with prizes")]
     [SerializeField] private List<WheelPartData> _wheelPartsData = null;
 
-    [Header("List of all prizes that are not on the wheel at the start")]
+    [Tooltip("List of all prizes that are not on the wheel at the start")]
     [SerializeField] private List<PrizeData> _prizesData = null;
 
     private List<WheelPart> _wheelParts = new List<WheelPart>();
@@ -119,7 +119,7 @@ public class WheelManager : MonoBehaviour
         _randomRewardIndex = Random.Range(0, totalSlots);
 
         int rotateCount = Random.Range(10, 15);
-
+        
         if (_prizeQueue.Length > 0 && _prizeQueue.Length > _rotationCount)
         {
             
@@ -137,13 +137,13 @@ public class WheelManager : MonoBehaviour
 
             if (_prizeNum >= _wheelParts.Count || !prizeFound)
             {
-                _prizeNum = Random.Range(0, _wheelParts.Count);
+                _prizeNum = GetRandomPrize();
                 _rotationCount--;
             }
         }
         else
         {
-            _prizeNum = Random.Range(0, _wheelParts.Count);
+            _prizeNum = GetRandomPrize();
         }
 
         float extraAngle = Random.Range(1, _wheelParts[_prizeNum].Size * 360);
@@ -294,5 +294,25 @@ public class WheelManager : MonoBehaviour
 
             return null;
         }
+    }
+
+    private int GetRandomPrize()
+    {
+        List<int> prizeNums = new List<int>();
+
+        int chance = 0;
+        for (int i = 0; i < _wheelParts.Count; i++)
+        {
+            chance = (int)(_wheelParts[i].PartData.prizeData.chance * 10);
+
+            for (int c = 0; c < chance; c++)
+            {
+                prizeNums.Add(i);
+            }
+        }
+
+        int prizeNum = prizeNums[Random.Range(0, prizeNums.Count)];
+
+        return prizeNum;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public System.Action showAds;
+
     [Header("Components")]
     [Tooltip("Prize icon on the victory screent")]
     [SerializeField] private Image _prizeIcon = null;
@@ -38,13 +40,7 @@ public class UIController : MonoBehaviour
 
     private void ADSButtonClick()
     {
-        /*
-         
-          показ интерстишела 
-
-         */
-
-        Debug.Log("¬ы посмотрели рекламу");
+        showAds?.Invoke(); // for example, to show an interstitial
 
         _wheelManager.TurnWheel();
         _winScreen.SetActive(false);

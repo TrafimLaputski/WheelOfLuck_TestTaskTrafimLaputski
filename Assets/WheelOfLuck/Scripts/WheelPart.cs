@@ -19,11 +19,6 @@ public class WheelPart : MonoBehaviour
 
     private WheelPartData _partData = null;
 
-    public int ID
-    {
-        get { return _partData.prizeData.ID; }
-    }
-
     public float Angle
     {
         get { return _partData.angle; }
