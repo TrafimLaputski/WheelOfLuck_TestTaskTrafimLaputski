@@ -597,57 +597,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelPartPrefab: {fileID: 1288249935767410942, guid: 2fba3d8b37e1aea469cd5ca35201cf57, type: 3}
-  _wheelParts:
+  _wheelPartsData:
   - DefaultIcon: {fileID: 21300000, guid: fc469465d15164f46a47840b5c2d83e1, type: 3}
-    DefaultDescription: 1
-    DefaultColor: {r: 0, g: 1, b: 0, a: 1}
+    DefaultDescription: 0
+    DefaultColor: {r: 0.10856521, g: 1, b: 0, a: 1}
     angle: 0
     size: 0
   - DefaultIcon: {fileID: 21300000, guid: 2216bd4be2907734eaaa5ba699f06b0a, type: 3}
-    DefaultDescription: 2
-    DefaultColor: {r: 1, g: 0.000000003973643, b: 0, a: 1}
+    DefaultDescription: 1
+    DefaultColor: {r: 1, g: 0, b: 0, a: 1}
     angle: 0
     size: 0
   - DefaultIcon: {fileID: 21300000, guid: 068bd2bed47c5cc488388212809737d1, type: 3}
-    DefaultDescription: 3
-    DefaultColor: {r: 1, g: 0, b: 0.7009754, a: 1}
+    DefaultDescription: 2
+    DefaultColor: {r: 0, g: 0.13396597, b: 1, a: 1}
     angle: 0
     size: 0
   - DefaultIcon: {fileID: 21300000, guid: ac0845efeca8ab84a855dabafc9a53ad, type: 3}
+    DefaultDescription: 3
+    DefaultColor: {r: 0, g: 1, b: 0.306108, a: 1}
+    angle: 0
+    size: 0
+  - DefaultIcon: {fileID: 21300000, guid: 2c826b7d862d9b74ea134c3fdddcf119, type: 3}
     DefaultDescription: 4
-    DefaultColor: {r: 0, g: 0.16606617, b: 1, a: 1}
+    DefaultColor: {r: 1, g: 0.36790052, b: 0, a: 1}
     angle: 0
     size: 0
   - DefaultIcon: {fileID: 21300000, guid: 2a16c98f736c96c4ca0287d81e753f1e, type: 3}
     DefaultDescription: 5
-    DefaultColor: {r: 1, g: 0.000000003973643, b: 0, a: 1}
+    DefaultColor: {r: 0, g: 0.656765, b: 1, a: 1}
     angle: 0
     size: 0
-  - DefaultIcon: {fileID: 21300000, guid: 2c826b7d862d9b74ea134c3fdddcf119, type: 3}
+  - DefaultIcon: {fileID: 21300000, guid: f468ef3a7b00c76428b0e986832d6341, type: 3}
     DefaultDescription: 6
-    DefaultColor: {r: 0, g: 1, b: 0.5162256, a: 1}
+    DefaultColor: {r: 0.7313528, g: 0, b: 1, a: 1}
     angle: 0
     size: 0
   - DefaultIcon: {fileID: 21300000, guid: 86eda41f5663190449cd05a21921ce62, type: 3}
     DefaultDescription: 7
-    DefaultColor: {r: 1, g: 0.000000003973643, b: 0, a: 1}
+    DefaultColor: {r: 1, g: 0, b: 0.44906044, a: 1}
     angle: 0
     size: 0
-  - DefaultIcon: {fileID: 21300000, guid: f468ef3a7b00c76428b0e986832d6341, type: 3}
-    DefaultDescription: 8
-    DefaultColor: {r: 0, g: 1, b: 0.97866297, a: 1}
-    angle: 0
-    size: 0
-  - DefaultIcon: {fileID: 21300000, guid: fc469465d15164f46a47840b5c2d83e1, type: 3}
-    DefaultDescription: 9
-    DefaultColor: {r: 0.853685, g: 1, b: 0, a: 1}
-    angle: 0
-    size: 0
-  - DefaultIcon: {fileID: 21300000, guid: 2216bd4be2907734eaaa5ba699f06b0a, type: 3}
-    DefaultDescription: 10
-    DefaultColor: {r: 0.65615654, g: 0, b: 1, a: 1}
-    angle: 0
-    size: 0
+  _wheelCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.03373553
+      outSlope: 0.03373553
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.24060263
+    - serializedVersion: 3
+      time: 0.2561069
+      value: 0.10230387
+      inSlope: 0.8272945
+      outSlope: 0.8272945
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.17975561
+    - serializedVersion: 3
+      time: 0.5783917
+      value: 0.87211
+      inSlope: 0.8545901
+      outSlope: 0.8545901
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9996948
+      value: 1.0013084
+      inSlope: 0.060312152
+      outSlope: 0.060312152
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31280798
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
