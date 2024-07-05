@@ -12,6 +12,7 @@ public class WheelManager : MonoBehaviour
     [SerializeField] private WheelPartData[] _wheelPartsData = null;
     [SerializeField] private AnimationCurve _wheelCurve = null;
 
+    [SerializeField] private int[] _prizeQueue = null;
     private List<WheelPart> _wheelParts = new List<WheelPart>();
 
     private bool _wheelStart = false;
@@ -21,8 +22,8 @@ public class WheelManager : MonoBehaviour
     private int _randomRewardIndex = 0;
     private float _currentRotationTime;
     private float _maxRotationTime;
-
-    private float _ta = 90;
+    
+    private int _rotationCount = 0;
     void Start()
     {
         GenerateWheel();
@@ -82,11 +83,25 @@ public class WheelManager : MonoBehaviour
         int totalSlots = _wheelParts.Count;
         _randomRewardIndex = Random.Range(0, totalSlots);
 
-        int rotationCount = Random.Range(10, 15);
-        _endAngle = -(rotationCount * 360 + _ta);
+        int rotateCount = Random.Range(10, 15);
+
+        int prize = 0;
+
+        if (_prizeQueue.Length > 0 && _prizeQueue.Length > _rotationCount)
+        {
+            prize = _prizeQueue[_rotationCount];
+        }
+        else
+        {
+            prize = Random.Range(0, _wheelParts.Count);
+        }
+
+        float extraAngle = Random.Range(1, _wheelParts[prize].Size * 360);
+        _endAngle = -(rotateCount * 360 + _wheelParts[prize].Angle - extraAngle);
 
         _currentRotationTime = 0.0f;
         _maxRotationTime = Random.Range(5.0f, 9.0f);
 
+        _rotationCount++;
     }
 }
