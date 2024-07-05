@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class WheelPartData {
 
+    public int ID = 0;
     public Sprite DefaultIcon = null;
     public string DefaultDescription = null;
     public Color DefaultColor = Color.green;

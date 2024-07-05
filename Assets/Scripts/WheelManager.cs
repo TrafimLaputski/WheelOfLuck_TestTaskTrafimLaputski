@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.ParticleSystem;
 
 public class WheelManager : MonoBehaviour
 {
+    public System.Action<WheelPart> winAction;
+
     [SerializeField] private WheelPart wheelPartPrefab = null;
     [SerializeField] private WheelPartData[] _wheelPartsData = null;
     [SerializeField] private AnimationCurve _wheelCurve = null;
@@ -24,19 +21,15 @@ public class WheelManager : MonoBehaviour
     private float _maxRotationTime;
     
     private int _rotationCount = 0;
-    void Start()
+    private int _prizeNum = 0;
+
+    private void Start()
     {
         GenerateWheel();
     }
 
-    void Update()
+    private void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TurnWheel();
-        }
-
         if (_wheelStart)
         {
             float t = _currentRotationTime / _maxRotationTime;
@@ -47,13 +40,13 @@ public class WheelManager : MonoBehaviour
 
             if (angle <= _endAngle)
             {
-                _wheelStart = false;
+                Win();
             }
 
             _currentRotationTime += Time.deltaTime;
         }
     }
-
+    
     private void GenerateWheel()
     {
         float size = 1f / _wheelPartsData.Length;
@@ -85,23 +78,32 @@ public class WheelManager : MonoBehaviour
 
         int rotateCount = Random.Range(10, 15);
 
-        int prize = 0;
-
         if (_prizeQueue.Length > 0 && _prizeQueue.Length > _rotationCount)
         {
-            prize = _prizeQueue[_rotationCount];
+            _prizeNum = _prizeQueue[_rotationCount];
+
+            if (_prizeNum >= _wheelParts.Count)
+            {
+                _prizeNum = Random.Range(0, _wheelParts.Count);
+            }
         }
         else
         {
-            prize = Random.Range(0, _wheelParts.Count);
+            _prizeNum = Random.Range(0, _wheelParts.Count);
         }
 
-        float extraAngle = Random.Range(1, _wheelParts[prize].Size * 360);
-        _endAngle = -(rotateCount * 360 + _wheelParts[prize].Angle - extraAngle);
+        float extraAngle = Random.Range(1, _wheelParts[_prizeNum].Size * 360);
+        _endAngle = -(rotateCount * 360 + _wheelParts[_prizeNum].Angle - extraAngle);
 
         _currentRotationTime = 0.0f;
         _maxRotationTime = Random.Range(5.0f, 9.0f);
 
         _rotationCount++;
+    }
+
+    private void Win()
+    {
+        _wheelStart = false;
+        winAction.Invoke(_wheelParts[_prizeNum]);
     }
 }

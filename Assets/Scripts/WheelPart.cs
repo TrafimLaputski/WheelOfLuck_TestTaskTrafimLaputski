@@ -14,6 +14,11 @@ public class WheelPart : MonoBehaviour
 
     private WheelPartData _partData = null;
 
+    public int ID
+    {
+        get { return _partData.ID; }
+    }
+
     public float Angle
     {
         get { return _partData.angle; }
@@ -22,6 +27,17 @@ public class WheelPart : MonoBehaviour
     public float Size
     {
         get { return _partData.size; }
+    }
+
+    public Sprite Icon
+    {
+        get { return _partData.DefaultIcon; }
+    }
+
+
+    public string Description
+    {
+        get { return _partData.DefaultDescription; }
     }
 
     public void GeneratePart(WheelPartData partData)
