@@ -29,6 +29,11 @@ public class WheelPart : MonoBehaviour
         get { return _partData.size; }
     }
 
+    public WheelPartData PartData 
+    { 
+        get { return _partData; } 
+    }
+
     public Sprite Icon
     {
         get { return _partData.DefaultIcon; }

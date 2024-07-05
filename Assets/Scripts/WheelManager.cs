@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class WheelManager : MonoBehaviour
@@ -6,10 +8,12 @@ public class WheelManager : MonoBehaviour
     public System.Action<WheelPart> winAction;
 
     [SerializeField] private WheelPart wheelPartPrefab = null;
-    [SerializeField] private WheelPartData[] _wheelPartsData = null;
+    [SerializeField] private bool _setNativeChance = false;
+    [SerializeField] private List<WheelPartData> _wheelPartsData = null;
     [SerializeField] private AnimationCurve _wheelCurve = null;
 
     [SerializeField] private int[] _prizeQueue = null;
+
     private List<WheelPart> _wheelParts = new List<WheelPart>();
 
     private bool _wheelStart = false;
@@ -23,6 +27,17 @@ public class WheelManager : MonoBehaviour
     private int _rotationCount = 0;
     private int _prizeNum = 0;
 
+    private void OnValidate()
+    {
+        if (_setNativeChance)
+        {
+            SetNativeChance();
+        }
+        else
+        {
+            CalculateChance();
+        }
+    }
     private void Start()
     {
         GenerateWheel();
@@ -49,10 +64,10 @@ public class WheelManager : MonoBehaviour
     
     private void GenerateWheel()
     {
-        float size = 1f / _wheelPartsData.Length;
-        float angleIncrement = 360f / _wheelPartsData.Length;
+        float size = 1f / _wheelPartsData.Count;
+        float angleIncrement = 360f / _wheelPartsData.Count;
 
-        for (int i = 0; i < _wheelPartsData.Length; i++)
+        for (int i = 0; i < _wheelPartsData.Count; i++)
         {
             WheelPart tempWheelPart = Instantiate(wheelPartPrefab.gameObject, transform).GetComponent<WheelPart>();
             float angle = i * angleIncrement;
@@ -65,6 +80,7 @@ public class WheelManager : MonoBehaviour
             _wheelParts.Add(tempWheelPart);
         }
     }
+
 
     public void TurnWheel()
     {
@@ -99,6 +115,83 @@ public class WheelManager : MonoBehaviour
         _maxRotationTime = Random.Range(5.0f, 9.0f);
 
         _rotationCount++;
+    }
+
+    private void CalculateChance()
+    {
+        float difference = 0;
+
+        List<WheelPartData> partsData = new List<WheelPartData>();
+
+        if (_wheelParts.Count > 0)
+        {
+            foreach (var part in _wheelParts)
+            {
+                partsData.Add(part.PartData);
+            }
+        }
+        else
+        {
+            partsData = _wheelPartsData;
+        }
+
+        WheelPartData tempPartData = null;
+
+        foreach (var part in partsData)
+        {
+            difference = part.chance - part.oldChance;
+
+            if (difference != 0)
+            {
+                part.oldChance = part.chance;
+                tempPartData = part;
+                break;
+            }
+        }
+
+        if (difference != 0)
+        {
+            difference /= partsData.Count;
+            foreach (var part in partsData)
+            {
+                if (part == tempPartData)
+                {
+                    continue;
+                }
+                else
+                {
+                    part.chance -= difference;
+                    part.oldChance = part.chance;
+                }
+            }
+
+        }
+    }
+
+    private void SetNativeChance()
+    {
+        float chance = 0;
+        List<WheelPartData> partsData = new List<WheelPartData>();
+
+        if (_wheelParts.Count > 0)
+        {
+            chance = 100f / _wheelParts.Count;
+            foreach (var part in _wheelParts)
+            {
+                partsData.Add(part.PartData);
+            }
+        }
+        else
+        {
+            chance = 100f / _wheelPartsData.Count;
+            partsData = _wheelPartsData;
+        }
+
+        foreach (var part in partsData)
+        {
+            part.chance = chance;
+            part.oldChance = chance;
+        }
     }
 
     private void Win()

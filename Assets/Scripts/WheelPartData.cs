@@ -12,4 +12,5 @@ public class WheelPartData {
     [Range(0, 100)] public float chance = 50;
     [HideInInspector] public float angle = 0f;
     [HideInInspector] public float size = 0f;
+    [HideInInspector] public float oldChance = 50;
 }
