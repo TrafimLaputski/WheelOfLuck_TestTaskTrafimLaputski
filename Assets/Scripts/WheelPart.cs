@@ -1,15 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WheelPart : MonoBehaviour
 {
+    [Header("Components")]
+    [Tooltip("Background image of the segment")]
     [SerializeField] private Image _image = null;
+
+    [Tooltip("Prize icon")]
     [SerializeField] private Image _icon = null;
+
+    [Tooltip("Prize Description")]
     [SerializeField] private TextMeshProUGUI _descriptionText = null;
+
+    [Tooltip("Information attachment point (icons and descriptions)")]
     [SerializeField] private GameObject _informationPoint = null;
 
     private WheelPartData _partData = null;

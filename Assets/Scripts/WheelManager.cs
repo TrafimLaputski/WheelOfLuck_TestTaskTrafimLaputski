@@ -1,21 +1,34 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Build;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WheelManager : MonoBehaviour
 {
     public System.Action<WheelPart> winAction;
 
+    [Header("Components")]
     [SerializeField] private WheelPart wheelPartPrefab = null;
-    [SerializeField] private bool _setNativeChance = false;
-    [SerializeField] private bool _setRandomPrizes = false;
-    [SerializeField] private List<WheelPartData> _wheelPartsData = null;
-    [SerializeField] private List<PrizeData> _prizesData = null;
+
+    [Space]
+    [Header("Settings")]
+    [Tooltip("Setting the speed and time of rotation")]
     [SerializeField] private AnimationCurve _wheelCurve = null;
 
+    [Tooltip("Setting up the Prize Queue(ID)")]
     [SerializeField] private int[] _prizeQueue = null;
+    
+    [Tooltip("If true, the chance is the same for all cells.If false, allows you to adjust the chance for each prize separately")]
+    [SerializeField] private bool _setNativeChance = false;
+
+    [Tooltip("If true, sets a random prize for each cell at the start")]
+    [SerializeField] private bool _setRandomPrizes = false;
+
+    [Space]
+    [Header("Prize list")]
+    [Tooltip("Wheel segment data. Allows you to add/remove them, change the color, and fill them with prizes")]
+    [SerializeField] private List<WheelPartData> _wheelPartsData = null;
+
+    [Header("List of all prizes that are not on the wheel at the start")]
+    [SerializeField] private List<PrizeData> _prizesData = null;
 
     private List<WheelPart> _wheelParts = new List<WheelPart>();
 
@@ -23,10 +36,10 @@ public class WheelManager : MonoBehaviour
 
     private float _startAngle;
     private float _endAngle;
-    private int _randomRewardIndex = 0;
     private float _currentRotationTime;
     private float _maxRotationTime;
-    
+
+    private int _randomRewardIndex = 0;
     private int _rotationCount = 0;
     private int _prizeNum = 0;
 
@@ -41,6 +54,7 @@ public class WheelManager : MonoBehaviour
             CalculateChance();
         }
     }
+
     private void Start()
     {
         GenerateWheel();
